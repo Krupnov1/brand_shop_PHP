@@ -1,0 +1,75 @@
+
+<div class="catalog">
+	<div class="product">
+		<img src="/img/{{good.image_file}}" alt="{{good.image_alt}}">  
+		<div class="like">({{good.likes}})</div>
+	</div>
+	<div class="moschino">
+		<h5>PRODUCT COLLECTION</h5>
+		<div class="bordMosch brdMoschLeft"></div>
+		<div class="activBord"></div>
+		<div class="bordMosch brdMoschRight"></div>
+		<h4>{{good.name}}</h4>
+		<p>{{good.description}}</p>
+		<div class="matMosch">
+			<div class="matCott">MATERIAL:<span>COTTON</span></div> 
+			<div class="desBin">DESIGNER: <span>BINBURHAN</span></div>
+		</div>
+		<div class="price">{{good.price}}<i class="fas fa-ruble-sign"></i></div> 
+		<div class="matMoschBord"></div>
+		<form class="contWomForm" action="" method="post">
+			<div>
+				<h5>CHOOSE COLOR</h5>
+				<div class="colorRedCh">
+					<div class="redChoose"></div>
+					<select class="redSel" name="#">
+						<option value="red">Red</option>
+						<option value="green">Green</option>
+						<option value="black">Black</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<h5>CHOOSE SIZE</h5>
+				<select name="#">
+					<option value="XXL">XXL</option>
+					<option value="XXL">XXL</option>
+					<option value="XXL">XXL</option>
+				</select>
+			</div>
+			<div>
+				<h5>QUANTITY</h5>
+				<input class="quant" type="text" placeholder="Введите количество" value="{{row.quantity}}">
+			</div>
+		</form>
+			<button class="butSection buy" data-id="{{good.id}}" value="{{good.id}}">Add to Cart</button>
+	</div>
+</div>
+
+
+<script>
+
+let button = document.querySelector('.buy');
+button.addEventListener('click', () => {
+	let id = button.getAttribute('data-id');
+	let quantity = document.querySelector('.quant').value;
+	(
+	async () => {
+		const response = await fetch('/basket/add', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json; charset=utf-8'},
+			body: JSON.stringify({
+				id: id,
+				quantity: quantity
+			})
+		});
+		const answer = await response.json();
+		document.getElementById('count').innerText = answer.count; 
+	}
+	)();
+});
+
+
+</script>
+
+

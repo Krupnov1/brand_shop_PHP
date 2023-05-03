@@ -1,0 +1,16 @@
+<nav class="navigation">
+
+	{% for value in menu %}
+
+		<a href="{{value.route}}">{{value.name}}</a>
+
+	{% endfor %}
+
+	<a href="/basket/all">Корзина (<span id="count"> {{count}} </span>) </a>   
+
+	{% if isAdmin == 'admin' %}
+	<a href="/admin/management">Страница админа</a> 
+	{% endif %}
+
+</nav>
+	
